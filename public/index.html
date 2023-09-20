@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  <script>
+    //Obtener url actual
+    var url = window.location.href+'api/usuarios';
+    var a = document.createElement('a');
+    a.innerHTML = 'Usuarios';
+    a.href = url
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    div.appendChild(a);
+
+  </script>
+</body>
+</html>
