@@ -1,9 +1,12 @@
 import { request, response } from 'express';
 import bcryptjs from 'bcryptjs';
+
 import Usuario from '../models/usuario.js';
+
 import { generarJWT } from '../helpers/generar-jwt.js';
 
 const login = async (req = request, res = response) => {
+
 	const { correo, password } = req.body;
 
 	try {
@@ -37,6 +40,7 @@ const login = async (req = request, res = response) => {
 			usuario,
 			token,
 		});
+		
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({

@@ -1,5 +1,6 @@
-import cors from 'cors';
 import express, { static as static_, json } from 'express';
+import cors from 'cors';
+
 import { dbConection } from '../database/config.js';
 
 // Change the import syntax to use module
