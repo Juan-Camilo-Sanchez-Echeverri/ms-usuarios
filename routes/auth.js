@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 
-import { validarCampos } from '../middlewares/vallidar-campos.js';
+import { validarCampos } from '../middlewares/validar-campos.js';
 
 import { login } from '../controllers/auth.js';
 

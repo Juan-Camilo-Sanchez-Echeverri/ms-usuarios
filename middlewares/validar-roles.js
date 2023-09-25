@@ -18,6 +18,7 @@ import { request, response } from "express";
  * will be returned.
  */
 const esAdminRole = (req = request, res = response, next) => {
+
   if (!req.usuario) {
     return res.status(500).json({
       msg: "Se quiere verificar el role sin validar el token primero",
@@ -33,6 +34,7 @@ const esAdminRole = (req = request, res = response, next) => {
   }
 
   next();
+
 };
 
 /**
@@ -44,6 +46,7 @@ const esAdminRole = (req = request, res = response, next) => {
  * @returns The function `tieneRole` returns another function.
  */
 const tieneRole = (...roles) => {
+  
   return (req = request, res = response, next) => {
     if (!req.usuario) {
       return res.status(500).json({

@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import Usuario from '../models/usuario.js';
 
 const validarJWT = async (req = request, res = response, next) => {
+
 	const token = req.header('x-token');
 	if (!token) {
 		return res.status(401).json({
@@ -41,7 +42,6 @@ const validarJWT = async (req = request, res = response, next) => {
 			msg: 'Token no válido',
 		});
 	}
-	next();
 };
 
 export { validarJWT };
