@@ -24,7 +24,7 @@ const existeUsuarioPorId = async (id) => {
 	if (!existeUsuario) {
 		throw new Error(`El id : ${id} no existe en la BD`);
 	}
-	
+
 };
 
 export { esRoleValido, emailExiste, existeUsuarioPorId };

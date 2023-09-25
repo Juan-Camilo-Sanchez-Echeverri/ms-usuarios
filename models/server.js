@@ -1,15 +1,17 @@
 import cors from 'cors';
 import express, { static as static_, json } from 'express';
-import router from '../routes/usuarios.js';
 import { dbConection } from '../database/config.js';
 
+// Change the import syntax to use module
+import { authRouter } from '../routes/auth.js';
+import { usuariosRouter } from '../routes/usuarios.js';
+
 export class Server {
-
 	constructor() {
-
 		this.app = express();
 		this.port = process.env.PORT;
 		this.usuariosPath = '/api/usuarios';
+		this.authPath = '/api/auth';
 
 		// Database
 		this.conectarDB();
@@ -17,13 +19,10 @@ export class Server {
 		this.middlewares();
 		// Routes
 		this.routes();
-
 	}
 
 	async conectarDB() {
-
 		await dbConection();
-
 	}
 
 	middlewares() {
@@ -35,20 +34,17 @@ export class Server {
 
 		// Public directory
 		this.app.use(static_('public'));
-
 	}
 
 	routes() {
-
-		this.app.use(this.usuariosPath, router);
-
+		// Use the imported routers
+		this.app.use(this.authPath, authRouter);
+		this.app.use(this.usuariosPath, usuariosRouter);
 	}
 
 	listen() {
-
 		this.app.listen(this.port, () =>
 			console.log(`listening on http://localhost:${this.port}`)
 		);
-		
 	}
 }
