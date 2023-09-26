@@ -7,6 +7,7 @@ import { generarJWT } from '../helpers/generar-jwt.js';
 import { googleVerify } from '../helpers/google-verify.js';
 
 const login = async (req = request, res = response) => {
+
 	const { correo, password } = req.body;
 
 	try {
@@ -40,6 +41,7 @@ const login = async (req = request, res = response) => {
 			usuario,
 			token,
 		});
+		
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({
