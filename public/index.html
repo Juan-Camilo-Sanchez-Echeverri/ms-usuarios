@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-</head>
-<body>
-  <script>
-    //Obtener url actual
-    var url = window.location.href+'api/usuarios';
-    var a = document.createElement('a');
-    a.innerHTML = 'Usuarios';
-    a.href = url
-    var div = document.createElement('div');
-    document.body.appendChild(div);
-    div.appendChild(a);
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Google Sign-in</title>
+	</head>
 
-  </script>
-</body>
+	<body>
+		<div
+			id="g_id_onload"
+			data-client_id="1005319293164-1ost7qocpqape27i389f77l4s784q215.apps.googleusercontent.com"
+			data-auto_prompt="false"
+			data-callback="handleCredentialResponse"
+		></div>
+		<div
+			class="g_id_signin"
+			data-type="standard"
+			data-size="large"
+			data-theme="outline"
+			data-text="sign_in_with"
+			data-shape="rectangular"
+			data-logo_alignment="left"
+		></div>
+
+		<button id="google_signout">SignOut</button>
+		<script src="https://accounts.google.com/gsi/client" async></script>
+		<script>
+			function handleCredentialResponse(response) {
+				const body = { id_token: response.credential };
+				// Google token : ID_TOKEN
+				fetch('http://localhost:8080/api/auth/google', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(body),
+				})
+					.then((res) => res.json())
+					.then((resp) => {
+						console.log(resp);
+						localStorage.setItem('email', resp.usuario.correo);
+					})
+					.catch((err) => console.log(err));
+			}
+			const button = document.getElementById('google_signout');
+			button.addEventListener('click', () => {
+				google.accounts.id.revoke(localStorage.getItem('email'), (done) => {
+					localStorage.clear();
+					location.reload();
+				});
+			});
+		</script>
+	</body>
 </html>
