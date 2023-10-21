@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import Usuario from '../models/usuario.js';
 
-const validarJWT = async (req = request, res = response, next) => {
+export const validarJWT = async (req = request, res = response, next) => {
 
 	const token = req.header('x-token');
 	if (!token) {
@@ -43,5 +43,3 @@ const validarJWT = async (req = request, res = response, next) => {
 		});
 	}
 };
-
-export { validarJWT };
