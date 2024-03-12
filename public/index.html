@@ -9,7 +9,7 @@
 	<body>
 		<div
 			id="g_id_onload"
-			data-client_id="1005319293164-1ost7qocpqape27i389f77l4s784q215.apps.googleusercontent.com"
+			data-client_id="1005319293164-qjm2465u3973ts9vormmk9b0q6rbi3d3.apps.googleusercontent.com"
 			data-auto_prompt="false"
 			data-callback="handleCredentialResponse"
 		></div>
@@ -41,6 +41,8 @@
 					.then((resp) => {
 						console.log(resp);
 						localStorage.setItem('email', resp.usuario.correo);
+						localStorage.setItem('token', resp.token);
+						location.reload();
 					})
 					.catch((err) => console.log(err));
 			}
