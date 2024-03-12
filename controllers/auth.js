@@ -55,29 +55,14 @@ const googleSignIn = async (req = request, res = response) => {
 
 	try {
 
-		const { nombre, img, correo } = await googleVerify(id_token);
+		const { correo } = await googleVerify(id_token);
 
 		let usuario = await Usuario.findOne({ correo });
 
+
 		if (!usuario) {
-			// Create user
-			const data = {
-				nombre,
-				correo,
-				password: ':P',
-				img,
-				rol: "USER_ROLE",
-				google: true,
-			};
-
-			usuario = new Usuario(data);
-			await usuario.save();
-		}
-
-		// If the user is in DB
-		if (!usuario.estado) {
 			return res.status(401).json({
-				msg: 'Contact the administrator, user blocked',
+				msg: 'User not found',
 			});
 		}
 
@@ -89,6 +74,7 @@ const googleSignIn = async (req = request, res = response) => {
 			usuario,
 			token,
 		});
+
 
 	} catch (error) {
 		res.status(400).json({
