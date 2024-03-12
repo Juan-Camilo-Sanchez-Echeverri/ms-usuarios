@@ -59,6 +59,7 @@ const googleSignIn = async (req = request, res = response) => {
 
 		let usuario = await Usuario.findOne({ correo })
 
+
 		if (!usuario) {
 			return res.status(404).json({
 				msg: 'User not registered',
@@ -72,6 +73,7 @@ const googleSignIn = async (req = request, res = response) => {
 			usuario,
 			token,
 		});
+
 
 	} catch (error) {
 		res.status(400).json({

@@ -24,7 +24,8 @@
 		></div>
 
 		<button id="google_signout">SignOut</button>
-		<script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
 		<script>
 			function handleCredentialResponse(response) {
 				const url = `${window.location.href}api/auth/google`;
