@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
+import RateLimit from 'express-rate-limit';
 
 
 import { esAdminRole, tieneRole, validarJWT, validarCampos } from "../middlewares/index.js";
@@ -16,6 +17,11 @@ import {
 
 
 const router = Router();
+
+const limiter = RateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // max 100 requests per windowMs
+});
 
 router.get('/', [
 	check('limite', "El valor de 'limite' debe ser numérico")
@@ -47,6 +53,7 @@ router.put('/:id', [
 router.patch('/', usuariosPatch);
 
 router.delete('/:id', [
+	limiter,
 	validarJWT,
 	// esAdminRole,
 	tieneRole('ADMIN_ROLE', 'VENTAS_ROLE'),
