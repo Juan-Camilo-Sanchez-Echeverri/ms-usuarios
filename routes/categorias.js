@@ -4,12 +4,15 @@ import { check } from 'express-validator';
 import { esAdminRole, validarCampos, validarJWT } from '../middlewares/index.js';
 import { actualizarCategoria, borrarCategoria, crearCategoria, obtenerCategoria, obtenerCategorias } from '../controllers/categorias.js';
 import { existeCategoriaPorId } from '../helpers/db-validators.js';
+import RateLimit from 'express-rate-limit';
 
-
-
+const limiter = RateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // max 100 requests per windowMs
+});
 const router = Router();
 
-
+router.use(limiter);
 router.get('/', obtenerCategorias)
 
 router.get('/:id', [
