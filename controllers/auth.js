@@ -12,7 +12,7 @@ const login = async (req = request, res = response) => {
 
 	try {
 		// Verify if the email exists
-		const usuario = await Usuario.findOne({ correo });
+		const usuario = await Usuario.findOne({ correo: { $eq: correo } });
 		if (!usuario) {
 			return res.status(400).json({
 				msg: 'User / Password are not correct - email',
