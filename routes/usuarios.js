@@ -23,6 +23,8 @@ const limiter = RateLimit({
     max: 100, // max 100 requests per windowMs
 });
 
+router.use(limiter);
+
 router.get('/', [
 	check('limite', "El valor de 'limite' debe ser numérico")
 		.isNumeric()
